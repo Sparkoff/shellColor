@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 ## Colors [Foreground 3, Background 4]
 #  0 black
@@ -19,22 +19,22 @@ colors=( "blk" "red" "grn" "yel" "blu" "mag" "cyn" "wht" )
 #  5 Blinking Characters
 
 
-for (( group = 0; group < 9; group++ )); do
+for (( group = -1; group < 8; group++ )); do
     echo -e "    --------------------------------------------------------------"
-    if [ $group -eq 0 ]; then
+    if [ $group -eq -1 ]; then
         line1="DFT :  ";
         line2="    :  ";
     else
         name=${colors[group]}
-        line1="$(echo $name | tr 'a-z' 'A-Z') : \e[4$(( group - 1 ))m ";
-        line2="    : \e[4$(( group - 1 ))m ";
+        line1="$(echo $name | tr 'a-z' 'A-Z') : \033[4${group}m ";
+        line2="    : \033[4${group}m ";
     fi
-    for (( color = 1; color < 9; color++ )); do
-        line1+="  \e[3$(( color - 1 ))m${colors[color]}  ";
-        line2+="  \e[1;3$(( color - 1 ))m${colors[color]}  ";
+    for (( color = 0; color < 8; color++ )); do
+        line1+="  \033[3${color}m${colors[color]}  ";
+        line2+="  \033[1;3${color}m${colors[color]}  ";
     done
-    line1+=" \e[39;49m :";
-    line2+=" \e[0;39;49m :";
+    line1+=" \033[39;49m :";
+    line2+=" \033[0;39;49m :";
     echo -e "$line1"
     echo -e "$line2"
 done
